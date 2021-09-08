@@ -1,5 +1,8 @@
 important ref
-* 23, 28
+* “Matrix Profile XII: MPdist
+* The great time series classification bake off
+* Optimizing Dynamic Time Warping’s window width for time series data mining applications
+* Generating synthetic time series to augment sparse datasets
 
 Data
 * format: class + time_seq
@@ -31,6 +34,15 @@ Lack of ablation to forcefully convince us
 Fairness
 * data classifier: 1-NN
 * data split: resampling while remaining the default train and test splits
-* Authors advise using a Wilcoxon signed-rank test with a significance level of $\alpha\leq0.05$ to check if there are significant differences between the classifiers
+* Core question: are there significant differences between the classifiers? (on different classes)
+* Authors advise using a Wilcoxon signed-rank test with a significance level of $\alpha\leq0.05$ to check if there are significant differences between the classifiers. Then summarize these comparisons in a critical difference diagram
+* Use Texas Sharpshooter plot to show the baseline result comparison
 
-hahaha
+Introduction to UCR achive
+* In most cases, we make the test set bigger than the train set to reflect real-world scenarios
+* Some class may have two train set (smaller and regular)
+
+discrete wavelet transformation
+
+global local ...
+
