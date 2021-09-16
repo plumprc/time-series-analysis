@@ -1,12 +1,10 @@
 important ref
-* “Matrix Profile XII: MPdist
-* The great time series classification bake off
-* Optimizing Dynamic Time Warping’s window width for time series data mining applications
+* Matrix Profile XII: MPdist
 * Generating synthetic time series to augment sparse datasets
 
 Data
 * format: class + time_seq
-* TODO: HIVE-COTE, z-normalization
+* notice lots of ... benefits from z-normalization? For maintain more semantic information, some of classes are not applied z-normalization
 * time series of different lengths:
   * pad NaN for length consistency in storing data
   * add low amplitude random numbers in computing baseline
@@ -14,6 +12,7 @@ Data
   * NaN in storing data
   * linear interpolation in computing baseline
 
+Implementation: https://github.com/wannesm/dtaidistance
 Dynamic time warping
 * `dist, ix, iy = dtw(x, y, w)`
 * How to choose a proper size of warping window?
