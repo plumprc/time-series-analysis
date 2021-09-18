@@ -2,12 +2,16 @@
 Practice on time series analysis, mainly concerning representation and contrastive learning.
 
 - [x] (Arxiv, 2018) Representation Learning with Contrastive Predictive Coding
-- [ ] (ICML, 2019) Data-Efficient Image Recognition with Contrastive Predictive Coding
 - [x] (Arxiv, 2021) Learning Timestamp-Level Representations for Time Series with Hierarchical Contrastive Loss
 - [x] (ICML, 2021) Neural Transformation Learning for Deep Anomaly Detection Beyond Images
+- [ ] (ICML, 2020) Barlow Twins: Self-Supervised Learning via Redundancy Reduction
+- [ ] (NeurIPS, 2020) Bootstrap your own latent: A new approach to self-supervised Learning
+- [ ] (NeurIPS, 2020) Unsupervised Learning of Visual Features by Contrasting Cluster Assignments
 - [ ] (Arxiv, 2020) A Survey on Contrastive Self-supervised Learning
 - [ ] (Arxiv, 2020) Self-supervised Learning: Generative or Contrastive
 - [ ] (ICML, 2020) Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere
+- [ ] (NeurIPS, 2020) Debiased Contrastive Learning
+- [ ] (ICLR, 2020) Contrastive Learning with Hard Negative Samples
 - [ ] (Arxiv, 2020) Boosting Contrastive Self-Supervised Learning with False Negative Cancellation
 - [ ] (ICLR, 2020) Conditional Negative Sampling for Contrastive Learning of Visual Representations
 - [ ] (ICLR, 2020) What Should Not Be Contrastive in Contrastive Learning
