@@ -14,6 +14,7 @@ Practice on time series analysis, mainly concerning representation and contrasti
 - [ ] (ICLR, 2020) Contrastive Learning with Hard Negative Samples
 - [ ] (Arxiv, 2020) Boosting Contrastive Self-Supervised Learning with False Negative Cancellation
 - [ ] (ICLR, 2020) Conditional Negative Sampling for Contrastive Learning of Visual Representations
+- [ ] (Arxiv, 2021) Towards Solving Inefficiency of Self-supervised Representation Learning
 - [ ] (ICLR, 2020) What Should Not Be Contrastive in Contrastive Learning
 - [ ] (NeurIPS, 2020) Unsupervised Representation Learning by Invariance Propagation
 - [ ] (AAAI, 2020) Contrastive Clustering
