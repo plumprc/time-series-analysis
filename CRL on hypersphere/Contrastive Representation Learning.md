@@ -16,14 +16,14 @@ Two key properties related to the contrastive loss
 * alignment (closeness) of features from positive pairs
 * uniformity of the induced distribution of the (normalized) features on the hypersphere
 
-With a unit $L_2$ norm constraint, effectively restricting
+Unit $L_2$ norm constraint effectively restricts
 the output space to the unit hypersphere.
 
 TODO: necessity of normalization
 
 Intuitively, having the features live on the unit hypersphere leads to several desirable traits:
-* Fixed-norm vectors are known to improve training stability
-* If features of a class are sufficiently well clustered, they are linearly separable with the rest of feature space
+* Fixed-norm vectors are known to improve training stability (avoid degradient? and benefit to computation)
+* Well clustered features are linearly separable with the rest of feature space
 
 While the unit hypersphere is a popular choice of feature space, not all encoders that map onto it are created equal. Recent works argue that representations should additionally be invariant to unnecessary details, and preserve as much information as possible.
 * Alignment favors encoders that assign similar features to similar samples
@@ -50,7 +50,7 @@ Uniformly distributing points on the unit hypersphere is a well-studied problem.
 
 Question: how to balance the contribution of positive samples and negative samples? I do not think that we can get the distribution just from positive samples.
 
-?why m-1
+?why m-1: polar coordinates with $r=1$
 
 $$L_\text{contrastive}(f;\tau,M)=\mathbb{E}-\log\frac{e^{f(x)^Tf(y)/\tau}}{e^{f(x)^Tf(y)/\tau}+\sum_ie^{f(x_i^-)^Tf(y)/\tau}}$$
 
