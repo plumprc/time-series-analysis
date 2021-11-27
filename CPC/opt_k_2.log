@@ -1,0 +1,99 @@
+Train Epoch:1[0/28539(0%)]	lr:0.00025	Acc:0.0000	Loss: 4.178170
+Train Epoch:1[6400/28539(22%)]	lr:0.00623	Acc:0.5625	Loss: 1.186179
+Train Epoch:1[12800/28539(45%)]	lr:0.00441	Acc:0.8125	Loss: 0.593304
+Train Epoch:1[19200/28539(67%)]	lr:0.00361	Acc:0.7812	Loss: 0.398649
+Train Epoch:1[25600/28539(90%)]	lr:0.00312	Acc:0.8438	Loss: 0.583023
+Starting Validation
+===> Validation set: Average loss: 0.5475	Accuracy: 0.8368
+
+new best val_acc 0.8368479467258602
+#### End epoch 1/10, elapsed time: 161.90639196056873
+Train Epoch:2[0/28539(0%)]	lr:0.00296	Acc:0.8750	Loss: 0.357383
+Train Epoch:2[6400/28539(22%)]	lr:0.00267	Acc:0.9375	Loss: 0.313995
+Train Epoch:2[12800/28539(45%)]	lr:0.00246	Acc:0.8750	Loss: 0.257323
+Train Epoch:2[19200/28539(67%)]	lr:0.00229	Acc:0.7812	Loss: 0.415178
+Train Epoch:2[25600/28539(90%)]	lr:0.00215	Acc:0.9375	Loss: 0.281736
+Starting Validation
+===> Validation set: Average loss: 0.3623	Accuracy: 0.8983
+
+new best val_acc 0.8982611912689604
+#### End epoch 2/10, elapsed time: 169.99899284448475
+Train Epoch:3[0/28539(0%)]	lr:0.00209	Acc:0.9688	Loss: 0.162641
+Train Epoch:3[6400/28539(22%)]	lr:0.00198	Acc:0.8750	Loss: 0.235998
+Train Epoch:3[12800/28539(45%)]	lr:0.00189	Acc:1.0000	Loss: 0.088325
+Train Epoch:3[19200/28539(67%)]	lr:0.00181	Acc:1.0000	Loss: 0.161635
+Train Epoch:3[25600/28539(90%)]	lr:0.00174	Acc:0.9375	Loss: 0.165793
+Starting Validation
+===> Validation set: Average loss: 0.2529	Accuracy: 0.9401
+
+new best val_acc 0.9400665926748057
+#### End epoch 3/10, elapsed time: 155.9383586095646
+Train Epoch:4[0/28539(0%)]	lr:0.00171	Acc:0.9688	Loss: 0.158908
+Train Epoch:4[6400/28539(22%)]	lr:0.00165	Acc:1.0000	Loss: 0.126051
+Train Epoch:4[12800/28539(45%)]	lr:0.00159	Acc:0.9062	Loss: 0.256867
+Train Epoch:4[19200/28539(67%)]	lr:0.00154	Acc:1.0000	Loss: 0.175226
+Train Epoch:4[25600/28539(90%)]	lr:0.00150	Acc:1.0000	Loss: 0.112009
+Starting Validation
+===> Validation set: Average loss: 0.2146	Accuracy: 0.9430
+
+new best val_acc 0.9430262671106179
+#### End epoch 4/10, elapsed time: 169.52838156279176
+Train Epoch:5[0/28539(0%)]	lr:0.00148	Acc:1.0000	Loss: 0.067148
+Train Epoch:5[6400/28539(22%)]	lr:0.00144	Acc:1.0000	Loss: 0.161864
+Train Epoch:5[12800/28539(45%)]	lr:0.00140	Acc:1.0000	Loss: 0.139032
+Train Epoch:5[19200/28539(67%)]	lr:0.00137	Acc:1.0000	Loss: 0.105807
+Train Epoch:5[25600/28539(90%)]	lr:0.00134	Acc:0.8125	Loss: 0.298275
+Starting Validation
+===> Validation set: Average loss: 0.1867	Accuracy: 0.9549
+
+new best val_acc 0.9548649648538661
+#### End epoch 5/10, elapsed time: 155.0039179297164
+Train Epoch:6[0/28539(0%)]	lr:0.00132	Acc:0.9688	Loss: 0.112530
+Train Epoch:6[6400/28539(22%)]	lr:0.00129	Acc:0.9375	Loss: 0.150157
+Train Epoch:6[12800/28539(45%)]	lr:0.00127	Acc:0.9375	Loss: 0.129225
+Train Epoch:6[19200/28539(67%)]	lr:0.00124	Acc:0.9375	Loss: 0.116563
+Train Epoch:6[25600/28539(90%)]	lr:0.00122	Acc:0.8750	Loss: 0.273436
+Starting Validation
+===> Validation set: Average loss: 0.2085	Accuracy: 0.9600
+
+new best val_acc 0.9600443951165372
+#### End epoch 6/10, elapsed time: 169.90548742190003
+Train Epoch:7[0/28539(0%)]	lr:0.00121	Acc:0.9688	Loss: 0.179372
+Train Epoch:7[6400/28539(22%)]	lr:0.00119	Acc:1.0000	Loss: 0.108244
+Train Epoch:7[12800/28539(45%)]	lr:0.00117	Acc:1.0000	Loss: 0.066041
+Train Epoch:7[19200/28539(67%)]	lr:0.00115	Acc:0.9375	Loss: 0.163505
+Train Epoch:7[25600/28539(90%)]	lr:0.00113	Acc:0.9062	Loss: 0.223418
+Starting Validation
+===> Validation set: Average loss: 0.1598	Accuracy: 0.9700
+
+new best val_acc 0.9700332963374029
+#### End epoch 7/10, elapsed time: 154.74140048678964
+Train Epoch:8[0/28539(0%)]	lr:0.00112	Acc:0.9062	Loss: 0.276646
+Train Epoch:8[6400/28539(22%)]	lr:0.00110	Acc:1.0000	Loss: 0.095212
+Train Epoch:8[12800/28539(45%)]	lr:0.00108	Acc:0.9375	Loss: 0.157110
+Train Epoch:8[19200/28539(67%)]	lr:0.00107	Acc:1.0000	Loss: 0.013686
+Train Epoch:8[25600/28539(90%)]	lr:0.00105	Acc:1.0000	Loss: 0.083666
+Starting Validation
+===> Validation set: Average loss: 0.1315	Accuracy: 0.9782
+
+new best val_acc 0.9781724010358861
+#### End epoch 8/10, elapsed time: 169.31958415079862
+Train Epoch:9[0/28539(0%)]	lr:0.00105	Acc:1.0000	Loss: 0.075439
+Train Epoch:9[6400/28539(22%)]	lr:0.00103	Acc:0.9062	Loss: 0.176346
+Train Epoch:9[12800/28539(45%)]	lr:0.00102	Acc:1.0000	Loss: 0.150772
+Train Epoch:9[19200/28539(67%)]	lr:0.00100	Acc:1.0000	Loss: 0.069703
+Train Epoch:9[25600/28539(90%)]	lr:0.00099	Acc:0.9375	Loss: 0.112918
+Starting Validation
+===> Validation set: Average loss: 0.1648	Accuracy: 0.9748
+
+#### End epoch 9/10, elapsed time: 156.79495320189744
+Train Epoch:10[0/28539(0%)]	lr:0.00099	Acc:0.9688	Loss: 0.192366
+Train Epoch:10[6400/28539(22%)]	lr:0.00097	Acc:0.9375	Loss: 0.080404
+Train Epoch:10[12800/28539(45%)]	lr:0.00096	Acc:0.9688	Loss: 0.266199
+Train Epoch:10[19200/28539(67%)]	lr:0.00095	Acc:0.9688	Loss: 0.096304
+Train Epoch:10[25600/28539(90%)]	lr:0.00094	Acc:1.0000	Loss: 0.025963
+Starting Validation
+===> Validation set: Average loss: 0.1529	Accuracy: 0.9711
+
+#### End epoch 10/10, elapsed time: 185.31863659061491
+Total elapsed time: 1653.991277451627
