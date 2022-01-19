@@ -70,7 +70,7 @@ Suppose the encoder is perfectly aligned ($f(x)=f(y)$), in a unit hypersphere sa
 
 $$\mathbb{E}\log(e^{1/\tau}+\sum_ie^{f(x_i^-)^Tf(x)/\tau})$$
 
-which is akin to maximizing pairwise distances with a `LogSumExp` transformation. Intuitively, pushing all features away from each other should indeed cause them to be roughly uniformly distributed.
+which is akin to maximizing pairwise distances with a `LogSumExp` transformation. Intuitively, pushing all features away from each other should indeed cause them to be roughly uniformly distributed.
 
 ### Quantifying Alignment and Uniformity
 &emsp;&emsp;The alignment loss is directly defined with the expected distance between positive pairs:

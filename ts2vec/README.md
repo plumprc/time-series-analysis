@@ -1,26 +1,6 @@
 # TS2Vec
-
-This repository contains the official implementation for the paper [Learning Timestamp-Level Representations for Time Series with Hierarchical Contrastive Loss](https://arxiv.org/abs/2106.10466).
-
-## Requirements
-
-The recommended requirements for TS2Vec are specified as follows:
-* Python 3.8
-* scipy==1.6.1
-* torch==1.8.1
-* numpy==1.19.2
-* pandas==1.0.1
-* scikit_learn==0.24.1
-
-The dependencies can be installed by:
-```bash
-pip install -r requirements.txt
-```
-
 ## Data
-
 The datasets can be obtained and put into `datasets/` folder in the following way:
-
 * [128 UCR datasets](https://www.cs.ucr.edu/~eamonn/time_series_data_2018) should be put into `datasets/UCR/` so that each data file can be located by `datasets/UCR/<dataset_name>/<dataset_name>_*.csv`.
 * [30 UEA datasets](http://www.timeseriesclassification.com) should be put into `datasets/UEA/` so that each data file can be located by `datasets/UEA/<dataset_name>/<dataset_name>_*.arff`.
 * [3 ETT datasets](https://github.com/zhouhaoyi/ETDataset) should be placed at `datasets/ETTh1.csv`, `datasets/ETTh2.csv` and `datasets/ETTm1.csv`.
