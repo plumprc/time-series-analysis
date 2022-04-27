@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
@@ -22,7 +23,8 @@ class TS2Vec:
         max_train_length=None,
         temporal_unit=0,
         after_iter_callback=None,
-        after_epoch_callback=None
+        after_epoch_callback=None,
+        aug='crop'
     ):
         ''' Initialize a TS2Vec model.
         
@@ -49,6 +51,7 @@ class TS2Vec:
         
         self._net = TSEncoder(input_dims=input_dims, output_dims=output_dims, hidden_dims=hidden_dims, depth=depth).to(self.device)
         self.net = torch.optim.swa_utils.AveragedModel(self._net)
+        self.dropout = nn.Dropout(p=0.2)
         self.net.update_parameters(self._net)
         
         self.after_iter_callback = after_iter_callback
@@ -56,6 +59,7 @@ class TS2Vec:
         
         self.n_epochs = 0
         self.n_iters = 0
+        self.aug = aug
     
     def fit(self, train_data, n_epochs=None, n_iters=None, verbose=False):
         ''' Training the TS2Vec model.
@@ -110,23 +114,34 @@ class TS2Vec:
                     window_offset = np.random.randint(x.size(1) - self.max_train_length + 1)
                     x = x[:, window_offset : window_offset + self.max_train_length]
                 x = x.to(self.device)
+
+                if self.aug == 'crop':
+                    ts_l = x.size(1)
+                    crop_l = np.random.randint(low=2 ** (self.temporal_unit + 1), high=ts_l+1)
+                    crop_left = np.random.randint(ts_l - crop_l + 1)
+                    crop_right = crop_left + crop_l
+                    crop_eleft = np.random.randint(crop_left + 1)
+                    crop_eright = np.random.randint(low=crop_right, high=ts_l + 1)
+                    crop_offset = np.random.randint(low=-crop_eleft, high=ts_l - crop_eright + 1, size=x.size(0))
                 
-                ts_l = x.size(1)
-                crop_l = np.random.randint(low=2 ** (self.temporal_unit + 1), high=ts_l+1)
-                crop_left = np.random.randint(ts_l - crop_l + 1)
-                crop_right = crop_left + crop_l
-                crop_eleft = np.random.randint(crop_left + 1)
-                crop_eright = np.random.randint(low=crop_right, high=ts_l + 1)
-                crop_offset = np.random.randint(low=-crop_eleft, high=ts_l - crop_eright + 1, size=x.size(0))
+                    out1 = self._net(take_per_row(x, crop_offset + crop_eleft, crop_right - crop_eleft))
+                    out1 = out1[:, -crop_l:]
                 
+                    out2 = self._net(take_per_row(x, crop_offset + crop_left, crop_eright - crop_left))
+                    out2 = out2[:, :crop_l]
+
+                elif self.aug == 'dropout':
+                    feat = self._net(x)
+                    out1 = self.dropout(feat)
+                    out2 = self.dropout(feat)   
+                
+                elif self.aug == 'reverse':
+                    out1 = self._net(x)
+                    out2 = self._net(torch.fliplr(x))
+
+                else: print('error aug')
+
                 optimizer.zero_grad()
-                
-                out1 = self._net(take_per_row(x, crop_offset + crop_eleft, crop_right - crop_eleft))
-                out1 = out1[:, -crop_l:]
-                
-                out2 = self._net(take_per_row(x, crop_offset + crop_left, crop_eright - crop_left))
-                out2 = out2[:, :crop_l]
-                
                 loss = hierarchical_contrastive_loss(
                     out1,
                     out2,
