@@ -51,7 +51,7 @@ class TS2Vec:
         
         self._net = TSEncoder(input_dims=input_dims, output_dims=output_dims, hidden_dims=hidden_dims, depth=depth).to(self.device)
         self.net = torch.optim.swa_utils.AveragedModel(self._net)
-        self.dropout = nn.Dropout(p=0.2)
+        # self.dropout = nn.Dropout(p=0.1)
         self.net.update_parameters(self._net)
         
         self.after_iter_callback = after_iter_callback
@@ -132,8 +132,12 @@ class TS2Vec:
 
                 elif self.aug == 'dropout':
                     feat = self._net(x)
-                    out1 = self.dropout(feat)
-                    out2 = self.dropout(feat)   
+                    p1, p2 = np.random.uniform(0.1, 0.5, 2)
+                    drop = nn.Dropout(p=p1)
+                    out1 = drop(feat)
+                    drop = nn.Dropout(p=p2)
+                    out2 = drop(feat)
+                    del drop
                 
                 elif self.aug == 'reverse':
                     out1 = self._net(x)
