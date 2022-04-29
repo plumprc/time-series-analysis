@@ -15,11 +15,12 @@ def UCR_cls(data, device, aug):
         input_dims=train_data.shape[-1],
         device=device,
         output_dims=320,
+        batch_size=32,
         aug=aug
     )
     loss_log = model.fit(
         train_data,
-        verbose=False
+        verbose=True
     )
     _, acc = eval_classification(model, train_data, train_labels, test_data, test_labels, eval_protocol='svm')
     print(data, acc)
@@ -30,3 +31,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     for data in data_name:
         UCR_cls(data, device, args.aug)
+        break

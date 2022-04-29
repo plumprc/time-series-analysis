@@ -1,8 +1,8 @@
 import os
 
 if __name__ == '__main__':
-    for log in os.listdir('./log'):
-        f = open('./log/' + log, 'r', encoding='utf-8')
+    for log in os.listdir('./checkpoints'):
+        f = open('./checkpoints/' + log, 'r', encoding='utf-8')
         line = f.readline()
         cum_acc, cum_auprc = 0., 0.
         while line:
