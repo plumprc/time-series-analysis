@@ -5,7 +5,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from models import TSEncoder
 from models.losses import hierarchical_contrastive_loss
-from utils import take_per_row, split_with_nan, centerize_vary_length_series, torch_pad_nan
+from utils import take_per_row, split_with_nan, centerize_vary_length_series, torch_pad_nan, diff
 import math
 
 class TS2Vec:
@@ -51,7 +51,7 @@ class TS2Vec:
         
         self._net = TSEncoder(input_dims=input_dims, output_dims=output_dims, hidden_dims=hidden_dims, depth=depth).to(self.device)
         self.net = torch.optim.swa_utils.AveragedModel(self._net)
-        # self.dropout = nn.Dropout(p=0.1)
+        self.dropout = nn.Dropout(p=0.1)
         self.net.update_parameters(self._net)
         
         self.after_iter_callback = after_iter_callback
@@ -131,17 +131,19 @@ class TS2Vec:
                     out2 = out2[:, :crop_l]
 
                 elif self.aug == 'dropout':
-                    feat = self._net(x)
-                    p1, p2 = np.random.uniform(0.1, 0.5, 2)
-                    drop = nn.Dropout(p=p1)
-                    out1 = drop(feat)
-                    drop = nn.Dropout(p=p2)
-                    out2 = drop(feat)
-                    del drop
+                    feat = self._net(x, drop=False)
+                    out1 = self.dropout(feat)
+                    out2 = self.dropout(feat)
                 
                 elif self.aug == 'reverse':
                     out1 = self._net(x)
                     out2 = self._net(torch.fliplr(x))
+
+                elif self.aug == 'diff':
+                    diff_1 = diff(x, 1)
+                    diff_2 = diff(x, 2)
+                    out1 = self._net(diff_1)
+                    out2 = self._net(diff_2)
 
                 else: print('error aug')
 

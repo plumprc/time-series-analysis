@@ -74,6 +74,18 @@ def name_with_datetime(prefix='default'):
     now = datetime.now()
     return prefix + '_' + now.strftime("%Y%m%d_%H%M%S")
 
+def diff(time, order=1):
+    assert len(time.shape) == 3
+    diff_order = []
+    for item in time:
+        item = item.cpu().numpy().reshape(-1)
+        diff = np.diff(item, order)
+        diff = np.concatenate((np.array([0 for i in range(order)]), diff))
+        diff = diff.reshape(diff.shape[0], 1)
+        diff_order.append(diff)
+
+    return torch.Tensor(np.array(diff_order))
+
 def init_dl_program(
     device_name,
     seed=None,

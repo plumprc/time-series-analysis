@@ -38,7 +38,7 @@ class TSEncoder(nn.Module):
         )
         self.repr_dropout = nn.Dropout(p=0.1)
         
-    def forward(self, x, mask=None):  # x: B x T x input_dims
+    def forward(self, x, mask=None, drop=True):  # x: B x T x input_dims
         nan_mask = ~x.isnan().any(axis=-1)
         x[~nan_mask] = 0
         x = self.input_fc(x)  # B x T x Ch
@@ -67,7 +67,10 @@ class TSEncoder(nn.Module):
         
         # conv encoder
         x = x.transpose(1, 2)  # B x Ch x T
-        x = self.repr_dropout(self.feature_extractor(x))  # B x Co x T
+        if drop == True:
+            x = self.repr_dropout(self.feature_extractor(x))  # B x Co x T
+        else:
+            x = self.feature_extractor(x)
         x = x.transpose(1, 2)  # B x T x Co
         
         return x
