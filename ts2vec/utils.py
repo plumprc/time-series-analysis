@@ -80,11 +80,42 @@ def diff(time, order=1):
     for item in time:
         item = item.cpu().numpy().reshape(-1)
         diff = np.diff(item, order)
-        diff = np.concatenate((np.array([0 for i in range(order)]), diff))
+        diff = np.concatenate((np.array([0 for _ in range(order)]), diff))
         diff = diff.reshape(diff.shape[0], 1)
         diff_order.append(diff)
 
     return torch.Tensor(np.array(diff_order))
+
+def diff_shift(time, shift=1):
+    assert len(time.shape) == 3
+    time_diff = []
+    for item in time:
+        item = item.cpu().numpy().reshape(-1)
+        time_shift = []
+        for i in range(len(item)-shift):
+            time_shift.append(item[i+shift] - item[i])
+
+        time_shift = np.concatenate((np.array([0 for _ in range(shift)]), np.array(time_shift)))
+        time_shift = time_shift.reshape(time_shift.shape[0], 1)
+        time_diff.append(time_shift)
+
+    time_diff = np.array(time_diff)
+    return torch.Tensor(time_diff)
+
+def diff_shift(time, shift=1):
+    assert len(time.shape) == 3
+    time_diff = []
+    for item in time:
+        item = item.cpu().numpy().reshape(-1)
+        time_shift = []
+        for i in range(len(item)-shift):
+            time_shift.append(item[i+shift] - item[i])
+
+        time_shift = np.concatenate((np.array([0 for _ in range(shift)]), np.array(time_shift)))
+        time_shift = time_shift.reshape(time_shift.shape[0], 1)
+        time_diff.append(time_shift)
+
+    return torch.Tensor(np.array(time_diff))
 
 def init_dl_program(
     device_name,

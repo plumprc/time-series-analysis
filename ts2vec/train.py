@@ -38,12 +38,16 @@ if __name__ == '__main__':
     parser.add_argument('--max-threads', type=int, default=None, help='The maximum allowed number of threads used by this process')
     parser.add_argument('--eval', action="store_true", help='Whether to perform evaluation after training')
     parser.add_argument('--irregular', type=float, default=0, help='The ratio of missing observations (defaults to 0)')
+    parser.add_argument('--aug', type=str, default='crop', help='The augmentation applied to time series (defaults to crop)')
     args = parser.parse_args()
     
     print("Dataset:", args.dataset)
     print("Arguments:", str(args))
     
-    device = init_dl_program(args.gpu, seed=args.seed, max_threads=args.max_threads)
+    if args.gpu < 0:
+        device = init_dl_program('cpu', seed=args.seed, max_threads=args.max_threads)
+    else:
+        device = init_dl_program(args.gpu, seed=args.seed, max_threads=args.max_threads)
     
     if args.archive == 'UCR':
         task_type = 'classification'
@@ -81,7 +85,8 @@ if __name__ == '__main__':
         batch_size=args.batch_size,
         lr=args.lr,
         output_dims=args.repr_dims,
-        max_train_length=args.max_train_length
+        max_train_length=args.max_train_length,
+        aug=args.aug
     )
     
     if args.save_every is not None:

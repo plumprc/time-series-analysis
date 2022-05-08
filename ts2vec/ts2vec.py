@@ -5,7 +5,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 from models import TSEncoder
 from models.losses import hierarchical_contrastive_loss
-from utils import take_per_row, split_with_nan, centerize_vary_length_series, torch_pad_nan, diff
+from utils import take_per_row, split_with_nan, centerize_vary_length_series, torch_pad_nan, diff, diff_shift
 import math
 
 class TS2Vec:
@@ -61,7 +61,7 @@ class TS2Vec:
         self.n_iters = 0
         self.aug = aug
     
-    def fit(self, train_data, n_epochs=None, n_iters=None, verbose=False):
+    def fit(self, train_data, n_epochs=None, n_iters=None, verbose=False, aug=None):
         ''' Training the TS2Vec model.
         
         Args:
@@ -74,7 +74,8 @@ class TS2Vec:
             loss_log: a list containing the training losses on each epoch.
         '''
         assert train_data.ndim == 3
-        
+        aug = self.aug
+
         if n_iters is None and n_epochs is None:
             n_iters = 200 if train_data.size <= 100000 else 600  # default param for n_iters
         
@@ -115,7 +116,7 @@ class TS2Vec:
                     x = x[:, window_offset : window_offset + self.max_train_length]
                 x = x.to(self.device)
 
-                if self.aug == 'crop':
+                if aug == 'crop':
                     ts_l = x.size(1)
                     crop_l = np.random.randint(low=2 ** (self.temporal_unit + 1), high=ts_l+1)
                     crop_left = np.random.randint(ts_l - crop_l + 1)
@@ -130,20 +131,26 @@ class TS2Vec:
                     out2 = self._net(take_per_row(x, crop_offset + crop_left, crop_eright - crop_left))
                     out2 = out2[:, :crop_l]
 
-                elif self.aug == 'dropout':
+                elif aug == 'dropout':
                     feat = self._net(x, drop=False)
                     out1 = self.dropout(feat)
                     out2 = self.dropout(feat)
                 
-                elif self.aug == 'reverse':
+                elif aug == 'reverse':
                     out1 = self._net(x)
                     out2 = self._net(torch.fliplr(x))
 
-                elif self.aug == 'diff':
-                    diff_1 = diff(x, 1)
-                    diff_2 = diff(x, 2)
+                elif aug == 'diff':
+                    diff_1 = diff(x, 1).to(self.device)
+                    diff_2 = diff(x, 2).to(self.device)
                     out1 = self._net(diff_1)
                     out2 = self._net(diff_2)
+
+                elif aug == 'shift':
+                    shift_1 = diff_shift(x, 1).to(self.device)
+                    shift_2 = diff_shift(x, 2).to(self.device)
+                    out1 = self._net(shift_1)
+                    out2 = self._net(shift_2)
 
                 else: print('error aug')
 
