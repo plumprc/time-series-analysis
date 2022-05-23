@@ -41,6 +41,7 @@ class EncoderLayer(nn.Module):
         #     x, x, x,
         #     attn_mask = attn_mask
         # ))
+
         new_x, attn = self.attention(
             x, x, x,
             attn_mask = attn_mask
@@ -63,6 +64,7 @@ class Encoder(nn.Module):
     def forward(self, x, attn_mask=None):
         # x [B, L, D]
         attns = []
+
         if self.conv_layers is not None:
             for attn_layer, conv_layer in zip(self.attn_layers, self.conv_layers):
                 x, attn = attn_layer(x, attn_mask=attn_mask)
