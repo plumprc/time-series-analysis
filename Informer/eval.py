@@ -32,3 +32,12 @@ if __name__ == '__main__':
 
     model = Informer(7, 7, 7, seq_len, label_len, pred_len)
     pred = model(batch_x.float(), batch_x_mark.float(), pred_seq.float(), batch_y_mark.float())
+
+    shift_mean = torch.nn.AvgPool1d(kernel_size=17, stride=1, padding=0)
+    pred_shift_mean = shift_mean(batch_x.transpose(1, 2)).transpose(1, 2)
+    true_shift_mean = shift_mean(batch_y.transpose(1, 2)).transpose(1, 2)
+
+    print(batch_x.shape, true_shift_mean.shape)
+
+    batch_x = torch.cat((batch_x, true_shift_mean), dim=1)
+    print(batch_x.shape)

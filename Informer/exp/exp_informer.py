@@ -21,6 +21,7 @@ warnings.filterwarnings('ignore')
 class Exp_Informer(Exp_Basic):
     def __init__(self, args):
         super(Exp_Informer, self).__init__(args)
+        self.shift_mean = nn.AvgPool1d(kernel_size=7, stride=1, padding=0)
     
     def _build_model(self):
         model_dict = {
@@ -285,5 +286,15 @@ class Exp_Informer(Exp_Basic):
             outputs = dataset_object.inverse_transform(outputs)
         f_dim = -1 if self.args.features=='MS' else 0
         batch_y = batch_y[:,-self.args.pred_len:,f_dim:].to(self.device)
+
+        # TODO: decomposition, (B, L, D)
+
+        pred_shift_mean = self.shift_mean(outputs.transpose(1, 2))
+        pred_shift_mean = pred_shift_mean.transpose(1, 2)
+        true_shift_mean = self.shift_mean(batch_y.transpose(1, 2))
+        true_shift_mean = true_shift_mean.transpose(1, 2)
+
+        outputs = torch.cat((outputs, pred_shift_mean), dim=1)
+        batch_y = torch.cat((batch_y, true_shift_mean), dim=1)
 
         return outputs, batch_y
