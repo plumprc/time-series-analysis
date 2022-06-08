@@ -115,7 +115,7 @@ class Exp_Informer(Exp_Basic):
         self.model.eval()
         total_loss = []
         for i, (batch_x,batch_y,batch_x_mark,batch_y_mark) in enumerate(vali_loader):
-            pred, true = self._process_one_batch(
+            pred, true, _, _ = self._process_one_batch(
                 vali_data, batch_x, batch_y, batch_x_mark, batch_y_mark)
             loss = criterion(pred.detach().cpu(), true.detach().cpu())
             total_loss.append(loss)
@@ -202,7 +202,7 @@ class Exp_Informer(Exp_Basic):
         trues = []
         
         for i, (batch_x,batch_y,batch_x_mark,batch_y_mark) in enumerate(test_loader):
-            pred, true = self._process_one_batch(
+            pred, true, _, _ = self._process_one_batch(
                 test_data, batch_x, batch_y, batch_x_mark, batch_y_mark)
             preds.append(pred.detach().cpu().numpy())
             trues.append(true.detach().cpu().numpy())
@@ -241,7 +241,7 @@ class Exp_Informer(Exp_Basic):
         preds = []
         
         for i, (batch_x,batch_y,batch_x_mark,batch_y_mark) in enumerate(pred_loader):
-            pred, true = self._process_one_batch(
+            pred, true, _, _ = self._process_one_batch(
                 pred_data, batch_x, batch_y, batch_x_mark, batch_y_mark)
             preds.append(pred.detach().cpu().numpy())
 
@@ -267,8 +267,11 @@ class Exp_Informer(Exp_Basic):
         # decoder input
         if self.args.padding==0:
             dec_inp = torch.zeros([batch_y.shape[0], self.args.pred_len, batch_y.shape[-1]]).float()
+            dec_inp = batch_x[:, -24:, :]
+
         elif self.args.padding==1:
             dec_inp = torch.ones([batch_y.shape[0], self.args.pred_len, batch_y.shape[-1]]).float()
+        
         dec_inp = torch.cat([batch_y[:,:self.args.label_len,:], dec_inp], dim=1).float().to(self.device)
         # encoder - decoder
         if self.args.use_amp:
@@ -286,15 +289,5 @@ class Exp_Informer(Exp_Basic):
             outputs = dataset_object.inverse_transform(outputs)
         f_dim = -1 if self.args.features=='MS' else 0
         batch_y = batch_y[:,-self.args.pred_len:,f_dim:].to(self.device)
-
-        # TODO: decomposition, (B, L, D)
-
-        pred_shift_mean = self.shift_mean(outputs.transpose(1, 2))
-        pred_shift_mean = pred_shift_mean.transpose(1, 2)
-        true_shift_mean = self.shift_mean(batch_y.transpose(1, 2))
-        true_shift_mean = true_shift_mean.transpose(1, 2)
-
-        outputs = torch.cat((outputs, pred_shift_mean), dim=1)
-        batch_y = torch.cat((batch_y, true_shift_mean), dim=1)
 
         return outputs, batch_y
