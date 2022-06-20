@@ -1,7 +1,23 @@
 import torch
 import torch.nn as nn
-from data_embedding import DataEmbedding
 import math
+
+class DataEmbedding(nn.Module):
+    def __init__(self, in_dim, out_dim, en_dim):
+        super(DataEmbedding, self).__init__()
+        
+        self.linear_1 = nn.Linear(in_dim, out_dim)
+        self.conv = nn.Conv1d(in_channels=in_dim, out_channels=out_dim, kernel_size=3, padding=1)
+        self.activation = nn.ELU()
+        self.linear_2 = nn.Linear(out_dim, en_dim)
+
+    def forward(self, x):
+        x = self.linear_1(x)
+        x = self.activation(x)
+        x = self.linear_2(x)
+
+        return x
+
 
 class AutoCorrelation(nn.Module):
     def __init__(self, factor=1, dropout=0.1, n_head=4):
